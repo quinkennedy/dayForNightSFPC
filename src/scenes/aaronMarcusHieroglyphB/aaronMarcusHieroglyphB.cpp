@@ -67,7 +67,15 @@ void aaronMarcusHieroglyphB::update(){
 
 	//move all the lines based on their speeds
 	//using time-based animation
+	float lineWidth = dimensions.width - border * 2;
+	float maxFrameSec = lineWidth;
+	if (lineSpeedMin > 0){
+		maxFrameSec /= lineSpeedMin;
+	}
 	uint64_t frameMicros = ofGetSystemTimeMicros() - lastFrameMicros;
+	if (frameMicros > maxFrameSec * 1000000){
+		frameMicros = maxFrameSec * 1000000;
+	}
 	lastFrameMicros = ofGetSystemTimeMicros();
 	for(int i = 0; i < lines.size(); i++){
 		Line& line = lines[i];
